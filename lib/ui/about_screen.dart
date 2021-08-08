@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:retroshare/common/styles.dart';
-
 import 'package:webview_flutter/webview_flutter.dart';
 
 class MyWebView extends StatefulWidget {
@@ -66,7 +65,6 @@ class _MyWebViewState extends State<MyWebView> {
                 initialUrl: 'https://retrosharedocs.readthedocs.io/en/latest/',
                 onWebViewCreated: (WebViewController webViewController) {
                   _controller.complete(webViewController);
-              
                 },
                 onPageFinished: _handleLoad,
               ),

@@ -179,7 +179,6 @@ Future<ResSendChat> sendMessage(
       .rsMsgsSendChat(reqSendChat: reqSendChat)
       .then((ResSendChat resSendChat) {
     if (resSendChat.retval) {
-      print(resSendChat.retval);
       //final store = StoreProvider.of<AppState>(context);
       ChatMessage message = new ChatMessage()
         ..chat_id = new ChatId()
@@ -234,7 +233,7 @@ Future<List<Identity>> getLobbyParticipants(
 }
 
 Future<List<VisibleChatLobbyRecord>> getUnsubscribedChatLobbies() async {
-  List<VisibleChatLobbyRecord> unsubscribedChatLobby = List();
+  List<VisibleChatLobbyRecord> unsubscribedChatLobby = [];
   var chatLobbies = await openapi.rsMsgsGetListOfNearbyChatLobbies();
   for (VisibleChatLobbyRecord chat in chatLobbies.publicLobbies) {
     bool autosubs = await getLobbyAutoSubscribe(chat.lobbyId.xstr64);
@@ -282,6 +281,7 @@ Future<DistantChatPeerInfo> getDistantChatStatus(
   var resp =
       await openapi.rsMsgsGetDistantChatStatus(reqGetDistantChatStatus: req);
   if (resp.retval != true) {
+   
     throw ("Error on getDistantChatStatus()");
   }
   return resp.info;
@@ -299,7 +299,6 @@ Chat getChat(
   String from,
 }) {
   Chat chat;
-  Provider.of<Identities>(context, listen: false).fetchOwnidenities();
   final currentIdentity =
       Provider.of<Identities>(context, listen: false).currentIdentity;
   String currentId = from ?? currentIdentity.mId;
