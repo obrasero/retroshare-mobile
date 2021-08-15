@@ -13,12 +13,12 @@ if (flutterRoot == null) {
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
+    flutterVersionCode = '0'//used by app store to prevent downgrades. must grow with every release
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
+    flutterVersionName = '0.1'//used as meaningfull version to the user
 }
 
 apply plugin: 'com.android.application'
@@ -33,13 +33,17 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "cc.retroshare.retroshare"
+        applicationId "cc.retroshare.mobile"
         minSdkVersion 16
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        
+        def date = new Date();
+        def formattedDate = date.format('dd.MM.yyyy_HH_mm');
+	setProperty("archivesBaseName", applicationId + " (" + versionName + "." + versionCode + ").build_" + formattedDate)
     }
 
     buildTypes {
